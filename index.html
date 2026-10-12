@@ -230,7 +230,10 @@ body {
       <input type="range" id="sizeRange" min="128" max="512" step="32" value="256">
     </div>
 
-    <button class="btn-generate" id="generateBtn">QRコードを生成</button>
+    <div style="display:flex;gap:.6rem;">
+      <button class="btn-generate" id="generateBtn" style="flex:1;">QRコードを生成</button>
+      <button class="btn-generate" id="resetBtn" style="background:transparent;border:1px solid var(--border);color:var(--text-muted);flex-shrink:0;width:auto;padding:.85rem 1.2rem;">リセット</button>
+    </div>
   </div>
 
   <div class="qr-card" id="qrCard">
@@ -278,6 +281,17 @@ function generate() {
   document.getElementById('qrText').textContent = text;
   document.getElementById('qrCard').classList.add('show');
 }
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  document.getElementById('textInput').value = '';
+  document.getElementById('fgColor').value = '#000000';
+  document.getElementById('bgColor').value = '#ffffff';
+  document.getElementById('sizeRange').value = 256;
+  document.getElementById('sizeVal').textContent = '256px';
+  document.getElementById('qrcode').innerHTML = '';
+  document.getElementById('qrCard').classList.remove('show');
+  qr = null;
+});
 
 document.getElementById('downloadPng').addEventListener('click', () => {
   const canvas = document.querySelector('#qrcode canvas');
